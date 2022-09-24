@@ -19,7 +19,8 @@
         ],
         "properties": {
             "name": "webApp1",
-            "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', 'appServicePlan1')]"
+            "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', 'appServicePlan1')]",
+            "pythonVersion": "3.8"
         }
      },
 {
