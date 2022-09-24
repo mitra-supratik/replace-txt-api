@@ -5,6 +5,9 @@ app=Flask(__name__)
 
 org =['Oracle', 'Google', 'Microsoft', 'Amazon', 'Deloitte']
 
+@app.route('/',methods=['GET'])
+def intro():
+    return "!!Text Replace Program!!"
 
 @app.route('/replace_txt/<srch_str>', methods=['POST'])
 def replace_txt(srch_str):
