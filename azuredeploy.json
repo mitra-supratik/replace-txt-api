@@ -58,13 +58,13 @@
                         "name": "nsgRuleAPI",
                         "properties": {
                             "description": "description",
-                            "protocol": "Tcp",
+                            "protocol": "*",
                             "sourcePortRange": "*",
                             "destinationPortRange": "5678",
                             "sourceAddressPrefix": "*",
                             "destinationAddressPrefix": "*",
                             "access": "Allow",
-                            "priority": 100,
+                            "priority": 110,
                             "direction": "Inbound"
                         }
                     }
