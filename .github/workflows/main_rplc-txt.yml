@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'rplc-txt'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BC7E75EE91674CCC91F8382392DC75F8 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DEF7A56B217445F1A8B7E48032CEDED2 }}
