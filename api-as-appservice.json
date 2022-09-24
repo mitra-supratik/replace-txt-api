@@ -1,29 +1,42 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {},
+    "parameters": {
+        "webapp-name": {
+            "type": "string",
+            "metadata": {
+                "description": "To define the website name"
+            }
+        },
+        "app-srvc-plan": {
+            "type": "string",
+            "metadata": {
+                "description": "To define the app service plan"
+            }
+        }
+    },
     "functions": [],
     "variables": {},
     "resources": [
         {
-            "name": "rplc-txt",
+            "name": "[parameters('webapp-name')]",
             "type": "Microsoft.Web/sites",
             "apiVersion": "2020-12-01",
             "location": "[resourceGroup().location]",
             "tags": {
-                "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/Api-Srvc-Plan')]": "Resource",
-                "displayName": "rplc-txt"
+                "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/',parameters('app-srvc-plan'))]": "Resource",
+                "displayName": "[parameters('webapp-name')]"
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', 'Api-Srvc-Plan')]"
+                "[resourceId('Microsoft.Web/serverfarms', parameters('app-srvc-plan'))]"
             ],
             "properties": {
-                "name": "rplc-txt",
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', 'appServicePlan1')]"
+                "name": "[parameters('webapp-name')]",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', 'Api-Srvc-Plan')]"
             }
         },
         {
-            "name": "Api-Srvc-Plan",
+            "name": "[parameters('app-srvc-plan')]",
             "type": "Microsoft.Web/serverfarms",
             "apiVersion": "2020-12-01",
             "location": "[resourceGroup().location]",
@@ -32,12 +45,18 @@
                 "capacity": 1
             },
             "tags": {
-                "displayName": "Api-Srvc-Plan"
+                "displayName": "[parameters('app-srvc-plan')]"
             },
             "properties": {
-                "name": "Api-Srvc-Plan"
+                "name": "[parameters('app-srvc-plan')]"
             }
         }
     ],
-    "outputs": {}
+    "outputs": {
+        "rplc-txt-url": {
+                "type": "array",
+                "value": "[reference(resourceId('Microsoft.Web/sites',parameters('webapp-name'))).hostNames]"
+            }
+        
+    }
 }
