@@ -8,6 +8,6 @@ Deployed on: Azure Web App<br>
 Container: Docker
 </p>
 
-<p>
-![arch diag](app-architecture.png?raw=true "arch")
-</p>
+
+![arch diag](/replace-txt-api/app-architecture.png?raw=true "arch")
+
