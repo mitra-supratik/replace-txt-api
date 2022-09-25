@@ -9,5 +9,5 @@ Container: Docker
 </p>
 
 
-![arch diag](/replace-txt-api/app-architecture.png?raw=true "arch")
+![arch diag](/app-architecture.png?raw=true "arch")
 
