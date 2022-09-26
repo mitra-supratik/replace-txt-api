@@ -10,8 +10,8 @@ Web Framework: Flask<br>
 Deployed on: Azure Web App<br>
 Container: Docker<br>
 App-Hosting Platform: Azure WebApp<br>
-Description: The app provides an API endpoint which accepts the organizaton name in the POST url call.
-The application is running on Azure WebApp
+Description: <br>The app provides an API endpoint which accepts the organizaton name in the POST url call.
+The application is running on Azure AppServices and is built with Flask web framework.
 </p>
 
 
