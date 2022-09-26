@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "webappname": {
+        "webapp-name": {
             "value": "orgname"
         },
         "sku": {
@@ -13,6 +13,10 @@
         },
         "repoUrl": {
             "value": "https://github.com/mitra-supratik/replace-txt-api.git"
+        },
+         "app-srvc-plan": {
+                "value": "orgname-pln"
         }
+        
     }
 }

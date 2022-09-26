@@ -32,7 +32,7 @@
             ],
             "properties": {
                 "name": "[parameters('webapp-name')]",
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', 'Api-Srvc-Plan')]",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms',parameters('app-srvc-plan') )]",
                 "pythonVersion": "3.8"
             }
         },
