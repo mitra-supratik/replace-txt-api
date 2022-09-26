@@ -4,12 +4,14 @@
         "parameters": {
             "webapp-name": {
                 "type": "string",
+                "defaultValue" : "rplc-txt",
                 "metadata": {
                     "description": "To define the website name"
                 }
             },
             "app-srvc-plan": {
                 "type": "string",
+                "defaultValue" : "rplc-txt-plan",
                 "metadata": {
                     "description": "To define the app service plan"
                 }
@@ -20,8 +22,15 @@
                 "metadata": {
                     "description": "Runtime Environment of the application"
                     } 
+            },
+            "repoUrl": {
+                    "type": "string",
+                    "defaultValue": "https://github.com/mitra-supratik/replace-txt-api.git",
+                    "metadata": {
+                        "description": "RepoURL"
+                    }
                 }
-        },
+            },
         "functions": [],
         "variables": {},
         "resources": [
@@ -42,6 +51,20 @@
                     }
                 }
             },
+            {
+                "condition": "[contains(parameters('repoUrl'), 'http')]",
+                "type": "Microsoft.Web/sites/sourcecontrols",
+                "apiVersion": "2021-02-01",
+                "name": "[format('{0}/{1}', parameters('webapp-name'), 'web')]",
+                "properties": {
+                    "repoUrl": "[parameters('repoUrl')]",
+                    "branch": "main",
+                    "isManualIntegration": true
+            },
+            "dependsOn": [
+        "[resourceId('Microsoft.Web/sites', parameters('webapp-name'))]"
+      ]
+    },
             {
                 "name": "[parameters('app-srvc-plan')]",
                 "type": "Microsoft.Web/serverfarms",
