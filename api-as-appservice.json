@@ -1,63 +1,70 @@
-{
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "webapp-name": {
-            "type": "string",
-            "metadata": {
-                "description": "To define the website name"
-            }
-        },
-        "app-srvc-plan": {
-            "type": "string",
-            "metadata": {
-                "description": "To define the app service plan"
-            }
-        }
-    },
-    "functions": [],
-    "variables": {},
-    "resources": [
-        {
-            "name": "[parameters('webapp-name')]",
-            "type": "Microsoft.Web/sites",
-            "apiVersion": "2020-12-01",
-            "location": "[resourceGroup().location]",
-            "tags": {
-                "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/',parameters('app-srvc-plan'))]": "Resource",
-                "displayName": "[parameters('webapp-name')]"
+    {
+        "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+        "contentVersion": "1.0.0.0",
+        "parameters": {
+            "webapp-name": {
+                "type": "string",
+                "metadata": {
+                    "description": "To define the website name"
+                }
             },
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', parameters('app-srvc-plan'))]"
-            ],
-            "properties": {
+            "app-srvc-plan": {
+                "type": "string",
+                "metadata": {
+                    "description": "To define the app service plan"
+                }
+            },
+            "linuxFxVersion": {
+                "type": "string",
+                "defaultValue": "PYTHON|3.9",
+                "metadata": {
+                    "description": "Runtime Environment of the application"
+                    } 
+                }
+        },
+        "functions": [],
+        "variables": {},
+        "resources": [
+            {
                 "name": "[parameters('webapp-name')]",
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', 'Api-Srvc-Plan')]",
-                "pythonVersion": "3.8"
-            }
-        },
-        {
-            "name": "[parameters('app-srvc-plan')]",
-            "type": "Microsoft.Web/serverfarms",
-            "apiVersion": "2020-12-01",
-            "location": "[resourceGroup().location]",
-            "sku": {
-                "name": "F1",
-                "capacity": 1
+                "type": "Microsoft.Web/sites",
+                "apiVersion": "2020-12-01",
+                "location": "[resourceGroup().location]",
+                "dependsOn": [
+                    "[resourceId('Microsoft.Web/serverfarms', parameters('app-srvc-plan'))]"
+                ],
+                "properties": {
+                    "name": "[parameters('webapp-name')]",
+                    "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('app-srvc-plan'))]",
+                    "siteConfig": {
+                        "pythonVersion" : "3.9",
+                        "linuxFxVersion": "[parameters('linuxFxVersion')]"
+                    }
+                }
             },
-            "tags": {
-                "displayName": "[parameters('app-srvc-plan')]"
-            },
-            "properties": {
-                "name": "[parameters('app-srvc-plan')]"
+            {
+                "name": "[parameters('app-srvc-plan')]",
+                "type": "Microsoft.Web/serverfarms",
+                "apiVersion": "2020-12-01",
+                "location": "[resourceGroup().location]",
+                "kind": "linux",
+                "properties": {
+                    "reserved" : true
+                },
+                "sku": {
+                    "name": "F1",
+                    "capacity": 1
+                },
+                "tags": {
+                    "displayName": "[parameters('app-srvc-plan')]"
+                }
             }
+        ],
+        "outputs": {
+            "rplc-txt-url": {
+                    "type": "array",
+                    "value": "[reference(resourceId('Microsoft.Web/sites',parameters('webapp-name'))).hostNames]"
+                }
+            
         }
-    ],
-    "outputs": {
-        "rplc-txt-url": {
-                "type": "array",
-                "value": "[reference(resourceId('Microsoft.Web/sites',parameters('webapp-name'))).hostNames]"
-            }
-        
     }
-}
