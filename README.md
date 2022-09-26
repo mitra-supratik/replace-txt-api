@@ -15,5 +15,5 @@ The application is running on Azure WebApp
 </p>
 
 
-![arch diag](/app-architecture.png?raw=true "arch")
+
 
