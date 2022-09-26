@@ -8,8 +8,8 @@ Purpose: The program accepts the name of the organization and adds the copyright
 Language: Python<br>
 Web Framework: Flask<br>
 Deployed on: Azure Web App<br>
-Container: Docker
-App-Hosting Platform: Azure WebApp
+Container: Docker<br>
+App-Hosting Platform: Azure WebApp<br>
 Description: The app provides an API endpoint which accepts the organizaton name in the POST url call.
 The application is running on Azure WebApp
 </p>
